@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 // func getUserMap(names []string, phoneNumbers []int) (map[string]user, error) {
@@ -52,20 +53,38 @@ import (
 // 	}
 // }
 
-func getNameCounts(names []string) map[rune]map[string]int {
-	nameCounts := make(map[rune]map[string]int)
+// func getNameCounts(names []string) map[rune]map[string]int {
+// 	nameCounts := make(map[rune]map[string]int)
 
-	for _, n := range names {
-		fc := []rune(n)[0];
-		if _,ok := nameCounts[fc]; !ok{
-			nameCounts[fc] = make(map[string]int)
+// 	for _, n := range names {
+// 		fc := []rune(n)[0];
+// 		// fc := unicode.ToLower([]rune(n)[0]); // normalize version
+// 		if _,ok := nameCounts[fc]; !ok{
+// 			nameCounts[fc] = make(map[string]int)
+// 		}
+// 		nameCounts[fc][n]++
+// 	}
+
+// 	return nameCounts
+// }
+
+func countDistinctWords(messages []string) int {
+	distinctWords := make(map[string]int);
+
+
+	for _,message := range messages{
+		words := strings.FieldsSeq(message)
+		for word := range words {
+			distinctWords[strings.ToLower(word)]++
 		}
-		nameCounts[fc][n]++
 	}
 
-	return nameCounts
+	return len(distinctWords)
 }
+
 
 func main() {
 	fmt.Println("app start")
+	messages := []string{"Hello world", "hello there", "General Kenobi"}
+	fmt.Println(countDistinctWords(messages))
 }
