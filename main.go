@@ -44,12 +44,26 @@ import (
 // 	scheduledForDeletion bool
 // }
 
-func updateCounts(messagedUsers []string, validUsers map[string]int) {
-	for _,m := range messagedUsers {
-		if _, ok := validUsers[m]; ok{
-			validUsers[m] += 1
+// func updateCounts(messagedUsers []string, validUsers map[string]int) {
+// 	for _,m := range messagedUsers {
+// 		if _, ok := validUsers[m]; ok{
+// 			validUsers[m] += 1
+// 		}
+// 	}
+// }
+
+func getNameCounts(names []string) map[rune]map[string]int {
+	nameCounts := make(map[rune]map[string]int)
+
+	for _, n := range names {
+		fc := []rune(n)[0];
+		if _,ok := nameCounts[fc]; !ok{
+			nameCounts[fc] = make(map[string]int)
 		}
+		nameCounts[fc][n]++
 	}
+
+	return nameCounts
 }
 
 func main() {
